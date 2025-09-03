@@ -38,6 +38,13 @@ func DNS() {
 				_ = w.WriteMsg(msg)
 				return
 			}
+			// Handle NS requests
+			if q.Qtype == dns.TypeNS {
+				ns := apexNS(zone, ns)
+				msg.Answer = append(msg.Answer, ns)
+				_ = w.WriteMsg(msg)
+				return
+			}
 
 			// Just respond to A (and ANY returning A)
 			if q.Qtype != dns.TypeA && q.Qtype != dns.TypeANY {
