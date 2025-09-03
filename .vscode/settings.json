@@ -3,6 +3,7 @@
         "hostmaster",
         "Minttl",
         "NXDOMAIN",
+        "qname",
         "Qtype",
         "Rcode",
         "Rrtype",

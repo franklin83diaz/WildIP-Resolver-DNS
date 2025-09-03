@@ -11,7 +11,7 @@ import (
 )
 
 func DNS() {
-	zone := config.Fqdn
+	zone := dns.CanonicalName(config.Fqdn)
 	addr := config.Address + ":" + fmt.Sprint(config.Port)
 	ttl := config.TTL
 	ns := config.NS
@@ -30,6 +30,7 @@ func DNS() {
 
 		//for each question
 		for _, q := range r.Question {
+			qname := dns.CanonicalName(q.Name)
 
 			// Handle SOA requests
 			if q.Qtype == dns.TypeSOA {
@@ -52,7 +53,7 @@ func DNS() {
 				return
 			}
 
-			name := dns.Fqdn(q.Name)
+			name := dns.Fqdn(qname)
 			zoneFQDN := dns.Fqdn(zone)
 
 			if !dns.IsSubDomain(zoneFQDN, name) {
