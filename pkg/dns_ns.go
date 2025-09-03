@@ -5,13 +5,14 @@ import (
 )
 
 func apexNS(zone string, ns string) dns.RR {
+	print(zone + " " + ns)
 	return &dns.NS{
 		Hdr: dns.RR_Header{
-			Name:   zone,
+			Name:   zone + ".",
 			Rrtype: dns.TypeNS,
 			Class:  dns.ClassINET,
 			Ttl:    3600,
 		},
-		Ns: ns,
+		Ns: ns + ".",
 	}
 }
